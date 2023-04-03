@@ -6,12 +6,14 @@ import CoreEngine
 
 class MainViewController: BaseViewController {
     private var mapView = NMFMapView.init()
+    private var core = MainCore()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
+        bind(core)
     }
     
     
@@ -29,8 +31,16 @@ class MainViewController: BaseViewController {
         core.getDustAction()
         
         core.$state.map(\.dusts)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] dusts in
                 guard let self = self else { return }
+                for dust in dusts {
+                    if let lat = dust.latitude, let long = dust.longitude {
+                        let marker = NMFMarker(position: .init(lat: lat, lng: long))
+                        marker.mapView = self.mapView
+                    }
+                }
+                
                 
                 print("❤️ \(dusts.first?.longitude)")
             }
