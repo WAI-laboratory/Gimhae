@@ -10,4 +10,6 @@ target 'Gimhae' do
   pod 'CoreEngine'
   pod 'SnapKit'
   pod 'AddThen'
+  
+  pod 'NMapsMap'
 end

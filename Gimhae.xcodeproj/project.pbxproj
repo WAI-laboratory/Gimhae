@@ -28,6 +28,7 @@
 		15CDFD5629DB1FFC00BA8F08 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD5529DB1FFC00BA8F08 /* BaseViewController.swift */; };
 		15CDFD5929DB204300BA8F08 /* MainCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD5829DB204300BA8F08 /* MainCore.swift */; };
 		15CDFD5C29DB208300BA8F08 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD5B29DB208300BA8F08 /* DataViewController.swift */; };
+		15CDFD5E29DB25BD00BA8F08 /* Bicycke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD5D29DB25BD00BA8F08 /* Bicycke.swift */; };
 		42D04F2C1BBF815D07ABE095 /* Pods_Gimhae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58F487A6018DA4776C77AD23 /* Pods_Gimhae.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		15CDFD5529DB1FFC00BA8F08 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		15CDFD5829DB204300BA8F08 /* MainCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCore.swift; sourceTree = "<group>"; };
 		15CDFD5B29DB208300BA8F08 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		15CDFD5D29DB25BD00BA8F08 /* Bicycke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bicycke.swift; sourceTree = "<group>"; };
 		58F487A6018DA4776C77AD23 /* Pods_Gimhae.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gimhae.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A6A1B1C0D7B7F585235F4B /* Pods-Gimhae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gimhae.debug.xcconfig"; path = "Target Support Files/Pods-Gimhae/Pods-Gimhae.debug.xcconfig"; sourceTree = "<group>"; };
 		AA8C72A1CD7F20E89F0B92BC /* Pods-Gimhae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gimhae.release.xcconfig"; path = "Target Support Files/Pods-Gimhae/Pods-Gimhae.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				15CDFD3D29DB1CB900BA8F08 /* Dust.swift */,
 				15CDFD4529DB1D8300BA8F08 /* WIFI.swift */,
 				15CDFD4729DB1DA000BA8F08 /* Festival.swift */,
+				15CDFD5D29DB25BD00BA8F08 /* Bicycke.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				15CDFD2629DB1B6500BA8F08 /* AppDelegate.swift in Sources */,
 				15CDFD5C29DB208300BA8F08 /* DataViewController.swift in Sources */,
 				15CDFD5429DB1F6F00BA8F08 /* MainViewController.swift in Sources */,
+				15CDFD5E29DB25BD00BA8F08 /* Bicycke.swift in Sources */,
 				15CDFD4F29DB1EC600BA8F08 /* System+ext.swift in Sources */,
 				15CDFD4429DB1D7500BA8F08 /* WIFIService.swift in Sources */,
 				15CDFD2829DB1B6500BA8F08 /* SceneDelegate.swift in Sources */,
