@@ -1,0 +1,24 @@
+PODS:
+  - AddThen (1.0.3)
+  - CoreEngine (1.0.0)
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - AddThen
+  - CoreEngine
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - AddThen
+    - CoreEngine
+    - SnapKit
+
+SPEC CHECKSUMS:
+  AddThen: aeab6c1cb34bef9667d593be3f67a2dd0e7f0a2b
+  CoreEngine: 66fc85d4f86d33cfdf7f90ed5eb8a3cf9275ce6e
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: 50fac3e6371851a6f8219845a0170a52bbd63416
+
+COCOAPODS: 1.11.3
