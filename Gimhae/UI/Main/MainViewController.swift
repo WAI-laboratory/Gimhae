@@ -8,6 +8,17 @@ class MainViewController: BaseViewController {
     private var mapView = NMFMapView.init()
     private var core = MainCore()
     
+    let defaultDataSource: NMFInfoWindowDefaultTextSource = {
+        let defaultDataSource = NMFInfoWindowDefaultTextSource.data()
+        defaultDataSource.title = "정보 창 내용"
+        return defaultDataSource
+    }()
+    
+    let infoWindow: NMFInfoWindow = {
+        let infoWindow = NMFInfoWindow()
+        return infoWindow
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +36,21 @@ class MainViewController: BaseViewController {
                 make.edges.equalToSuperview()
             }
         }
+        infoWindow.dataSource = defaultDataSource
     }
     
     private func bind(_ core: MainCore) {
         core.getDustAction()
-        
+        let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
+            if let marker = overlay as? NMFMarker {
+                let dust = marker.userInfo["dust"] as! Dust
+                print("❤️ \(dust)")
+                self?.defaultDataSource.title = "\(dust.loc)\n미세먼지: \(dust.tenpm)\n초미세먼지: \(dust.superPm)"
+                self?.infoWindow.open(with: marker)
+            }
+            return true
+        }
+
         core.$state.map(\.dusts)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] dusts in
@@ -38,11 +59,10 @@ class MainViewController: BaseViewController {
                     if let lat = dust.latitude, let long = dust.longitude {
                         let marker = NMFMarker(position: .init(lat: lat, lng: long))
                         marker.mapView = self.mapView
+                        marker.userInfo = ["dust": dust]
+                        marker.touchHandler = handler
                     }
                 }
-                
-                
-                print("❤️ \(dusts.first?.longitude)")
             }
             .store(in: &subscription)
         
