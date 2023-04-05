@@ -34,7 +34,7 @@ struct Dust: Codable {
         }
     }
     
-    var tempmState: DustState {
+    var superPmState: DustState {
         switch superPm {
         case (Int.min...8): return .best
         case (9...15): return .good

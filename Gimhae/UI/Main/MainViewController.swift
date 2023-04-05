@@ -45,7 +45,7 @@ class MainViewController: BaseViewController {
             if let marker = overlay as? NMFMarker {
                 let dust = marker.userInfo["dust"] as! Dust
                 print("❤️ \(dust)")
-                self?.defaultDataSource.title = "\(dust.loc)\n미세먼지: \(dust.tenpm)\n초미세먼지: \(dust.superPm)"
+                self?.defaultDataSource.title = "\(dust.loc)\n미세먼지: \(dust.tempmState.word)(\(dust.tenpm))\n초미세먼지: \(dust.superPmState.word)(\(dust.superPm))"
                 self?.infoWindow.open(with: marker)
             }
             return true
@@ -59,6 +59,7 @@ class MainViewController: BaseViewController {
                     if let lat = dust.latitude, let long = dust.longitude {
                         let marker = NMFMarker(position: .init(lat: lat, lng: long))
                         marker.mapView = self.mapView
+                        marker.iconTintColor = dust.tempmState.color
                         marker.userInfo = ["dust": dust]
                         marker.touchHandler = handler
                     }
