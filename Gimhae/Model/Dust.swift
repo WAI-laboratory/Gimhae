@@ -7,7 +7,7 @@ struct DustResponse: Codable {
     var data: [Dust]
 }
 
-struct Dust: Codable {
+struct Dust: Codable, Equatable {
     var dev: String
     var name: String
     var loc: String

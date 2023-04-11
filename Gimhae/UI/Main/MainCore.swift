@@ -7,14 +7,26 @@ class MainCore: AnyCore {
     enum Action {
         case breakOut
         case getDust([Dust])
-        
+        case getBicycle([Bicycle])
+        case getBicycleInouts([BicycleInOut])
+        case setMapState(MapState)
+    }
+    
+    enum MapState: Equatable {
+        case dusts
+        case bicycles
+        case none
     }
     
     struct State {
         var dusts: [Dust] = []
-        
+        var bicycles: [Bicycle] = []
+        var bicycleInouts: [BicycleInOut] = []
+        var currentMapState: MapState = .none
     }
     private let dustService = DustService.shared
+    private let bicycleService = BicycleService.shared
+    private let bicycleInoutService = BicycleInOutSerivce.shared
     @Published var state: State = .init()
     
     func reduce(state: State, action: Action) -> State {
@@ -24,6 +36,12 @@ class MainCore: AnyCore {
             break
         case let .getDust(values):
             newState.dusts = values
+        case let .getBicycle(value):
+            newState.bicycles = value
+        case let .setMapState(value):
+            newState.currentMapState = value
+        case let .getBicycleInouts(value):
+            newState.bicycleInouts = value
         }
         return newState
     }
@@ -33,5 +51,21 @@ class MainCore: AnyCore {
             .map(\.data)
             .map(Action.getDust)
         dispatch(effect: getDust)
+    }
+    
+    func getBicyclesAction() {
+        let getBicycles = bicycleService.get()
+            .map(\.data)
+            .map(Action.getBicycle)
+        dispatch(effect: getBicycles)
+        
+        let getBicycleInouts = bicycleInoutService.get()
+            .map(\.data)
+            .map(Action.getBicycleInouts)
+        dispatch(effect: getBicycleInouts)
+    }
+    
+    func handleError(error: Error) {
+        print("❤️ \(error)")
     }
 }

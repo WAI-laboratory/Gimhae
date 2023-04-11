@@ -23,8 +23,10 @@ struct SimpleError: Error {
 
 struct DecodeFailedError: Error {
     var json: String
+    var underlyingError: Error
     
-    init(data: Data) {
+    init(data: Data, error: Error) {
         self.json = String(data: data, encoding: .utf8) ?? ""
+        self.underlyingError = error
     }
 }

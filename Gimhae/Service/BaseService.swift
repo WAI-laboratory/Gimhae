@@ -23,7 +23,7 @@ extension Servicable {
                     let datas = try JSONDecoder().decode(Model.self, from: data)
                     return datas
                 } catch {
-                    throw DecodeFailedError(data: data)
+                    throw DecodeFailedError(data: data, error: error)
                 }
             }
             .eraseToAnyPublisher()

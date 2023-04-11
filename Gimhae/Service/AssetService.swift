@@ -14,7 +14,7 @@ class AssetService: BaseService {
                     let _data = try JSONDecoder().decode(AssetResponse.self, from: data)
                     return _data
                 } catch {
-                    throw DecodeFailedError(data: data)
+                    throw DecodeFailedError(data: data, error: error)
                 }
             }
             .eraseToAnyPublisher()
