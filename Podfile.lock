@@ -1,5 +1,6 @@
 PODS:
   - AddThen (1.0.3)
+  - CombineCocoa (0.4.1)
   - CoreEngine (1.0.0)
   - NMapsGeometry (1.0.1)
   - NMapsMap (3.16.2):
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - AddThen
+  - CombineCocoa
   - CoreEngine
   - NMapsMap
   - SnapKit
@@ -15,6 +17,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AddThen
+    - CombineCocoa
     - CoreEngine
     - NMapsGeometry
     - NMapsMap
@@ -22,11 +25,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AddThen: aeab6c1cb34bef9667d593be3f67a2dd0e7f0a2b
+  CombineCocoa: e5210dbfb480ff251078929459ac17e750e7af1d
   CoreEngine: 66fc85d4f86d33cfdf7f90ed5eb8a3cf9275ce6e
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: aaa64717249b06ae82c3a3addb3a01f0e33100ab
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: ad868612c3178790e556285e150c31d618256a3d
+PODFILE CHECKSUM: a6e2329b90d39d6e57031168e4431f829fe7e962
 
 COCOAPODS: 1.11.3

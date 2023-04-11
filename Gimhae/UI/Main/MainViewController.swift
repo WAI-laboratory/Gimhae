@@ -18,6 +18,11 @@ class MainViewController: BaseViewController {
         let infoWindow = NMFInfoWindow()
         return infoWindow
     }()
+    
+    private let wrapperView = UIView()
+    private let wrapperStack = UIStackView()
+    private let dustButton = MapComponentButton(image: UIImage(systemName: "facemask"), title: "미세먼지")
+    private let bicycleButton = MapComponentButton(image: UIImage(systemName: "bicycle"), title: "전기 자전거")
 
     
     private var markers: [NMFMarker] = []
@@ -38,6 +43,28 @@ class MainViewController: BaseViewController {
             }
         }
         infoWindow.dataSource = defaultDataSource
+        
+        view.add(wrapperView) {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 24
+            $0.clipsToBounds = true
+            $0.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(44)
+                make.leading.trailing.equalToSuperview().inset(16)
+                make.height.equalTo(76)
+            }
+        }
+        wrapperView.add(wrapperStack) {
+            $0.axis = .horizontal
+            $0.spacing = 16
+            $0.distribution = .equalCentering
+            $0.snp.makeConstraints { make in
+                make.top.bottom.centerX.equalToSuperview()
+            }
+            $0.addArrangedSubview(self.bicycleButton)
+            $0.addArrangedSubview(self.dustButton)
+        }
+        
         
     }
     
@@ -139,3 +166,46 @@ class CustomInfoView: UIView {
         }
     }
 }
+
+
+
+class MapComponentButton: UIControl {
+    private let imageView = UIImageView()
+    private let label = UILabel()
+    
+    init(
+        image: UIImage?,
+        title: String
+    ) {
+        super.init(frame: .zero)
+        imageView.image = image
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.text = title
+        
+        add(imageView) {
+            $0.contentMode = .scaleAspectFit
+            $0.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(4)
+                make.centerX.equalToSuperview()
+                make.width.equalTo(32)
+            }
+        }
+        
+        add(label) {
+            $0.snp.makeConstraints { make in
+                make.top.equalTo(self.imageView.snp.bottom).offset(4)
+                make.leading.trailing.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        }
+        snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(44)
+        }
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+

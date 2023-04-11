@@ -12,4 +12,6 @@ target 'Gimhae' do
   pod 'AddThen'
   
   pod 'NMapsMap'
+  pod 'CombineCocoa'
+
 end
