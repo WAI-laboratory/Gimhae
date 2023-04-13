@@ -13,5 +13,5 @@ target 'Gimhae' do
   
   pod 'NMapsMap'
   pod 'CombineCocoa'
-
+  pod 'Cards'
 end
