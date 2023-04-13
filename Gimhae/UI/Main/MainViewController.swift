@@ -50,18 +50,23 @@ class MainViewController: BaseViewController {
             $0.clipsToBounds = true
             $0.snp.makeConstraints { make in
                 make.top.equalToSuperview().inset(44)
-                make.leading.trailing.equalToSuperview().inset(16)
-                make.height.equalTo(76)
+                make.centerX.equalToSuperview()
+//                make.height.equalTo(76)
             }
         }
         wrapperView.add(wrapperStack) {
             $0.axis = .horizontal
             $0.spacing = 16
-            $0.distribution = .equalCentering
             $0.snp.makeConstraints { make in
-                make.top.bottom.centerX.equalToSuperview()
+                make.edges.equalToSuperview().inset(24)
             }
             $0.addArrangedSubview(self.bicycleButton)
+            $0.addArranged(UIView()) {
+                $0.backgroundColor = .tertiaryLabel
+                $0.snp.makeConstraints { make in
+                    make.width.equalTo(1)
+                }
+            }
             $0.addArrangedSubview(self.dustButton)
         }
         
@@ -178,9 +183,10 @@ class MapComponentButton: UIControl {
         title: String
     ) {
         super.init(frame: .zero)
-        imageView.image = image
+        imageView.image = image?.withRenderingMode(.alwaysTemplate).withTintColor(.label)
         label.font = .preferredFont(forTextStyle: .caption1)
         label.text = title
+        label.textColor = .label
         
         add(imageView) {
             $0.contentMode = .scaleAspectFit
