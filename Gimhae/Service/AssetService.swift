@@ -3,6 +3,7 @@ import Foundation
 
 class AssetService: BaseService {
     let url = "http://www.gimhae.go.kr/openapi/tour/asset.do"
+    static let shared = AssetService()
     
     func getAssets(page: Int) -> AnyPublisher<AssetResponse, Error> {
         guard let _url = URL(string: url + "?page=\(page)") else { return Fail(error: SimpleError(message: "url not found")).eraseToAnyPublisher()}
@@ -29,12 +30,12 @@ struct AssetResponse: Codable {
     var pageunit: Int
     var page: Int
     var page_count: Int
-    var results: Int
+    var results: [GimhaeAsset]
     
 }
 
 struct GimhaeAsset: Codable {
-    var idx: String
+    var idx: Int
     var name: String
     var category: String
     var area: String
@@ -49,7 +50,7 @@ struct GimhaeAsset: Codable {
     var xposition: String
     var yposition: String
     var parking: String
-    var images: String
+    var images: [String]
     
     var assetnumber: String
     var assetdate: String
