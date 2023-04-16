@@ -14,4 +14,5 @@ target 'Gimhae' do
   pod 'NMapsMap'
   pod 'CombineCocoa'
   pod 'Cards'
+  pod 'BetterSegmentedControl', '~> 2.0'
 end

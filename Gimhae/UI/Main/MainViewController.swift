@@ -3,6 +3,8 @@ import Combine
 import NMapsMap
 import AddThen
 import CoreEngine
+import CombineCocoa
+import BetterSegmentedControl
 
 class MainViewController: BaseViewController {
     private var mapView = NMFMapView.init()
@@ -23,7 +25,19 @@ class MainViewController: BaseViewController {
     private let wrapperStack = UIStackView()
     private let dustButton = MapComponentButton(image: UIImage(systemName: "facemask"), title: "미세먼지")
     private let bicycleButton = MapComponentButton(image: UIImage(systemName: "bicycle"), title: "전기 자전거")
-
+    private var segmentControl = BetterSegmentedControl.init(
+        frame: .zero,
+        segments: [
+            IconSegment.init(icon: UIImage(systemName: "facemask")!, iconSize: .init(width: 24, height: 24), normalIconTintColor: .label, selectedIconTintColor: .brown),
+            IconSegment.init(icon: UIImage(systemName: "bicycle")!, iconSize: .init(width: 24, height: 24), normalIconTintColor: .label, selectedIconTintColor: .brown),
+            LabelSegment.init(text: "문화유산")
+        ],
+        options: [
+            .cornerRadius(24.0),
+            .backgroundColor(UIColor(red: 0.16, green: 0.64, blue: 0.94, alpha: 1.00)),
+            .indicatorViewBackgroundColor(.white)]
+    )
+    
     
     private var markers: [NMFMarker] = []
     
@@ -36,41 +50,27 @@ class MainViewController: BaseViewController {
     
     
     private func initView () {
+        navigationController?.navigationBar.isHidden = true
         view.add(mapView) {
+            $0.isNightModeEnabled = true
             $0.moveCamera(.init(position: .init(.init(lat: 35.25551631902464, lng: 128.8716916600828), zoom: 15)))
             $0.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+//                make.top.equalTo(self.segmentControl.snp.bottom).offset(12)
+                make.top.leading.trailing.bottom.equalToSuperview()
             }
         }
         infoWindow.dataSource = defaultDataSource
-        
-        view.add(wrapperView) {
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = 24
-            $0.clipsToBounds = true
+        view.backgroundColor = .systemBackground
+        view.add(segmentControl) {
             $0.snp.makeConstraints { make in
-                make.top.equalToSuperview().inset(44)
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                 make.centerX.equalToSuperview()
-//                make.height.equalTo(76)
+                make.leading.trailing.equalToSuperview().inset(24)
+                make.height.equalTo(52)
             }
         }
-        wrapperView.add(wrapperStack) {
-            $0.axis = .horizontal
-            $0.spacing = 16
-            $0.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(24)
-            }
-            $0.addArrangedSubview(self.bicycleButton)
-            $0.addArranged(UIView()) {
-                $0.backgroundColor = .tertiaryLabel
-                $0.snp.makeConstraints { make in
-                    make.width.equalTo(1)
-                }
-            }
-            $0.addArrangedSubview(self.dustButton)
-        }
         
-        
+
     }
     
     private func bind(_ core: MainCore) {
@@ -140,6 +140,7 @@ class MainViewController: BaseViewController {
                 }
             }
             .store(in: &subscription)
+        
         
     }
     
