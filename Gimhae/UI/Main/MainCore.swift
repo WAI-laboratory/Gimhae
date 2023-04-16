@@ -9,12 +9,14 @@ class MainCore: AnyCore {
         case getDust([Dust])
         case getBicycle([Bicycle])
         case getBicycleInouts([BicycleInOut])
+        case getHeritage()
         case setMapState(MapState)
     }
     
     enum MapState: Equatable {
         case dusts
         case bicycles
+        case heritage
         case none
     }
     
@@ -27,6 +29,7 @@ class MainCore: AnyCore {
     private let dustService = DustService.shared
     private let bicycleService = BicycleService.shared
     private let bicycleInoutService = BicycleInOutSerivce.shared
+    private let heritageSerivce = HeritageService.shared
     @Published var state: State = .init()
     
     func reduce(state: State, action: Action) -> State {

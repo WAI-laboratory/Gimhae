@@ -1,18 +1,18 @@
 import Combine
 import Foundation
 
-class AssetService: BaseService {
+class HeritageService: BaseService {
     let url = "http://www.gimhae.go.kr/openapi/tour/asset.do"
-    static let shared = AssetService()
+    static let shared = HeritageService()
     
-    func getAssets(page: Int) -> AnyPublisher<AssetResponse, Error> {
+    func getAssets(page: Int) -> AnyPublisher<HeritageResponse, Error> {
         guard let _url = URL(string: url + "?page=\(page)") else { return Fail(error: SimpleError(message: "url not found")).eraseToAnyPublisher()}
         
         return URLSession.shared.dataTaskPublisher(for: _url)
             .tryMap(\.data)
             .tryMap { data in
                 do {
-                    let _data = try JSONDecoder().decode(AssetResponse.self, from: data)
+                    let _data = try JSONDecoder().decode(HeritageResponse.self, from: data)
                     return _data
                 } catch {
                     throw DecodeFailedError(data: data, error: error)
@@ -23,18 +23,18 @@ class AssetService: BaseService {
     
 }
 
-struct AssetResponse: Codable {
+struct HeritageResponse: Codable {
     var record_count: Int
     var address: String
     var name: String
     var pageunit: Int
     var page: Int
     var page_count: Int
-    var results: [GimhaeAsset]
+    var results: [GimhaeHeritage]
     
 }
 
-struct GimhaeAsset: Codable {
+struct GimhaeHeritage: Codable {
     var idx: Int
     var name: String
     var category: String
