@@ -5,6 +5,9 @@ import AddThen
 import CoreEngine
 import CombineCocoa
 import BetterSegmentedControl
+import FirebaseFirestore
+import CodableFirebase
+import FirebaseCore
 
 class MainViewController: BaseViewController {
     private var mapView = NMFMapView.init()
@@ -46,6 +49,7 @@ class MainViewController: BaseViewController {
         
         initView()
         bind(core)
+
     }
     
     
@@ -55,7 +59,6 @@ class MainViewController: BaseViewController {
             $0.isNightModeEnabled = true
             $0.moveCamera(.init(position: .init(.init(lat: 35.25551631902464, lng: 128.8716916600828), zoom: 15)))
             $0.snp.makeConstraints { make in
-//                make.top.equalTo(self.segmentControl.snp.bottom).offset(12)
                 make.top.leading.trailing.bottom.equalToSuperview()
             }
         }
@@ -76,20 +79,23 @@ class MainViewController: BaseViewController {
     private func bind(_ core: MainCore) {
         core.getDustAction()
         core.getBicyclesAction()
-        core.action(.setMapState(.bicycles))
+        core.action(.setMapState(.dusts))
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
+            guard let self else { return false }
             if let marker = overlay as? NMFMarker {
                 if let dust = marker.userInfo["dust"] as? Dust {
-                    self?.defaultDataSource.title = "미세먼지: \(dust.tempmState.word)(\(dust.tenpm)㎍/m³)초미세먼지: \(dust.superPmState.word)(\(dust.superPm))"
-                    self?.infoWindow.open(with: marker)
+                    self.defaultDataSource.title = "미세먼지: \(dust.tempmState.word)(\(dust.tenpm)㎍/m³)초미세먼지: \(dust.superPmState.word)(\(dust.superPm))"
+                    self.infoWindow.open(with: marker)
                 } else if let bicycle = marker.userInfo["bicycle"] as? Bicycle {
-                    if let self {
-                        let bicycleInouts = self.core.state.bicycleInouts
-                        if let bicycleInout = bicycleInouts.first(where: { $0.mgtNo == bicycle.mgtNo }) {
-                            self.defaultDataSource.title = "대여수: \(bicycleInout.inCnt) 반납수: \(bicycleInout.outCnt)"
-                            self.infoWindow.open(with: marker)
-                        }
+                    
+                    let bicycleInouts = self.core.state.bicycleInouts
+                    if let bicycleInout = bicycleInouts.first(where: { $0.mgtNo == bicycle.mgtNo }) {
+                        self.defaultDataSource.title = "대여수: \(bicycleInout.inCnt) 반납수: \(bicycleInout.outCnt)"
+                        self.infoWindow.open(with: marker)
                     }
+                    
+                } else if let heritage = marker.userInfo["heritage"] as? GimhaeHeritage {
+                    self.defaultDataSource.title = "\(heritage.content)"
                 }
             }
             return true
@@ -125,6 +131,7 @@ class MainViewController: BaseViewController {
                     let bicycles = self.core.state.bicycles
                     for bicycle in bicycles {
                         if let lat = bicycle.latitude, let long = bicycle.longitude {
+
                             let marker = NMFMarker(position: .init(lat: lat, lng: long),iconImage: .init(image: UIImage(systemName: "bicycle.circle.fill")!))
                             marker.mapView = self.mapView
                             marker.captionText = "\(bicycle.name)"
@@ -134,6 +141,18 @@ class MainViewController: BaseViewController {
                         }
                     }
                     
+                case .heritage:
+                    let heritages = self.core.state.heritages
+                    for heritage in heritages {
+                        if let lat = Double(heritage.xposition), let long = Double(heritage.yposition) {
+                            let marker = NMFMarker(position: .init(lat: lat, lng: long), iconImage: .init(image: UIImage(systemName: "gift.circle.fill")!))
+                            marker.mapView = self.mapView
+                            marker.captionText = "\(heritage.name)"
+                            marker.userInfo = ["heritage": heritage]
+                            marker.touchHandler = handler
+                            self.markers.append(marker)
+                        }
+                    }
                     
                 case .none: break
                     
@@ -141,11 +160,21 @@ class MainViewController: BaseViewController {
             }
             .store(in: &subscription)
         
+        segmentControl.addTarget(self, action: #selector(self.segmentedControl1ValueChanged(_:)), for: .valueChanged)
         
     }
     
     func setBicycle() {
         core.getBicyclesAction()
+    }
+    
+    @objc private func segmentedControl1ValueChanged(_ sender: BetterSegmentedControl) {
+        switch sender.index {
+        case 0: self.core.action(.setMapState(.dusts))
+        case 1: self.core.action(.setMapState(.bicycles))
+        case 2: self.core.action(.setMapState(.heritage))
+        default: break
+        }
     }
 }
 

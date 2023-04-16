@@ -1,11 +1,14 @@
 import Combine
 import Foundation
+import FirebaseFirestore
+import CodableFirebase
 
 class HeritageService: BaseService {
     let url = "http://www.gimhae.go.kr/openapi/tour/asset.do"
     static let shared = HeritageService()
+    let db = Firestore.firestore()
     
-    func getAssets(page: Int) -> AnyPublisher<HeritageResponse, Error> {
+    private func getAssets(page: Int) -> AnyPublisher<HeritageResponse, Error> {
         guard let _url = URL(string: url + "?page=\(page)") else { return Fail(error: SimpleError(message: "url not found")).eraseToAnyPublisher()}
         
         return URLSession.shared.dataTaskPublisher(for: _url)
@@ -56,6 +59,14 @@ struct GimhaeHeritage: Codable {
     var assetdate: String
     var assetscale: String
     var assetage: String
+    
+    var latitude: Double? {
+        return Double(self.yposition)
+    }
+    
+    var longitude: Double? {
+        return Double(self.xposition)
+    }
     
 }
 

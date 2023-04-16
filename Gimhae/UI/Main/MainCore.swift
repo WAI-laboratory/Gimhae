@@ -1,5 +1,7 @@
 import Combine
 import CoreEngine
+import CodableFirebase
+import FirebaseFirestore
 
 class MainCore: AnyCore {
     var subscription: Set<AnyCancellable> = .init()
@@ -9,7 +11,7 @@ class MainCore: AnyCore {
         case getDust([Dust])
         case getBicycle([Bicycle])
         case getBicycleInouts([BicycleInOut])
-        case getHeritage()
+        case getHeritage([GimhaeHeritage])
         case setMapState(MapState)
     }
     
@@ -24,6 +26,7 @@ class MainCore: AnyCore {
         var dusts: [Dust] = []
         var bicycles: [Bicycle] = []
         var bicycleInouts: [BicycleInOut] = []
+        var heritages: [GimhaeHeritage] = []
         var currentMapState: MapState = .none
     }
     private let dustService = DustService.shared
@@ -31,6 +34,10 @@ class MainCore: AnyCore {
     private let bicycleInoutService = BicycleInOutSerivce.shared
     private let heritageSerivce = HeritageService.shared
     @Published var state: State = .init()
+    
+    init() {
+        getHeritages()
+    }
     
     func reduce(state: State, action: Action) -> State {
         var newState = state
@@ -45,6 +52,8 @@ class MainCore: AnyCore {
             newState.currentMapState = value
         case let .getBicycleInouts(value):
             newState.bicycleInouts = value
+        case let .getHeritage(value):
+            newState.heritages = value
         }
         return newState
     }
@@ -70,5 +79,20 @@ class MainCore: AnyCore {
     
     func handleError(error: Error) {
         print("❤️ \(error)")
+    }
+    
+    func getHeritages() {
+        Firestore.firestore().collection("model").getDocuments { [weak self] snapShort, error in
+            if let snapShort {
+                var gimhaeHeritages: [GimhaeHeritage] = []
+                for document in snapShort.documents {
+                    let model = try! FirestoreDecoder().decode(GimhaeHeritage.self, from: document.data())
+                    gimhaeHeritages.append(model)
+                }
+
+                self?.action(.getHeritage(gimhaeHeritages))
+            }
+        }
+        
     }
 }
