@@ -769,7 +769,7 @@ PODS:
 DEPENDENCIES:
   - AddThen
   - BetterSegmentedControl (~> 2.0)
-  - Cards
+  - Cards (from `https://github.com/sobabear/Cards.git`, commit `f9f0d3a929df075cc911151291ca33967853f7f5`)
   - CodableFirebase
   - CombineCocoa
   - CoreEngine
@@ -785,7 +785,6 @@ SPEC REPOS:
     - AddThen
     - BetterSegmentedControl
     - BoringSSL-GRPC
-    - Cards
     - CodableFirebase
     - CombineCocoa
     - CoreEngine
@@ -808,6 +807,16 @@ SPEC REPOS:
     - Player
     - PromisesObjC
     - SnapKit
+
+EXTERNAL SOURCES:
+  Cards:
+    :commit: f9f0d3a929df075cc911151291ca33967853f7f5
+    :git: https://github.com/sobabear/Cards.git
+
+CHECKOUT OPTIONS:
+  Cards:
+    :commit: f9f0d3a929df075cc911151291ca33967853f7f5
+    :git: https://github.com/sobabear/Cards.git
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -838,6 +847,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: a0cbef30cd296556b4191f1567a331638acc31dd
+PODFILE CHECKSUM: ec2290887deb058b86d5260c2aa0d9e3c5655913
 
 COCOAPODS: 1.11.3

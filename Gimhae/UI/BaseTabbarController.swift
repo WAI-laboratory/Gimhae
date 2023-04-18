@@ -5,6 +5,7 @@ final class BaseTabBarController: UITabBarController {
     private var subscription = Set<AnyCancellable>()
     
     let mainVC = MainViewController.init()
+    let cardVC = CardIntroduceViewController()
     let settingVC = DataViewController()
     private var previousIndex = 0
     
@@ -23,14 +24,14 @@ final class BaseTabBarController: UITabBarController {
         let mainTabUnSelectedImage = UIImage(systemName: "square.and.pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.imageWithoutBaseline()
         mainVC.tabBarItem.image = mainTabUnSelectedImage
         mainVC.tabBarItem.selectedImage = mainTabSelectedImage
+        
+        // MARK: - Event
+        
+        let eventTabSelectedImage = UIImage(systemName: "tortoise", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))!.imageWithoutBaseline()
+        let eventTabUnSelectedImage = UIImage(systemName: "tortoise.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.imageWithoutBaseline()
+        cardVC.tabBarItem.image = eventTabUnSelectedImage
+        cardVC.tabBarItem.selectedImage = eventTabSelectedImage
 
-//        // MARK: - Calendar
-//        let calVCUnSelectedImage = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
-//        let calVCSelectedImage = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
-//        calVC.tabBarItem.image = calVCUnSelectedImage
-//        calVC.tabBarItem.selectedImage = calVCSelectedImage
-//
-//        addVC.tabBarItem.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.imageWithoutBaseline()
         
         // MARK: - Map
         
@@ -50,9 +51,7 @@ final class BaseTabBarController: UITabBarController {
         
         self.viewControllers = [
                 UINavigationController(rootViewController: mainVC),
-//                UINavigationController(rootViewController: mapVC),
-//                addVC,
-//                UINavigationController(rootViewController: calVC),
+                UINavigationController(rootViewController: cardVC),
                 UINavigationController(rootViewController: settingVC),
         ]
         for tab in tabBar.items! {

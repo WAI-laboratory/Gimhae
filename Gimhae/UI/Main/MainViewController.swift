@@ -96,6 +96,7 @@ class MainViewController: BaseViewController {
                     
                 } else if let heritage = marker.userInfo["heritage"] as? GimhaeHeritage {
                     self.defaultDataSource.title = "\(heritage.content)"
+                    self.present(HeritageViewController(heritage: heritage), animated: true)
                 }
             }
             return true
