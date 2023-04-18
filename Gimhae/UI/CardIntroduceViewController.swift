@@ -92,15 +92,25 @@ class CardCollectionViewCell: UICollectionViewCell {
         if let _image = festival.images.first, let url = URL(string: _image) {
             Task {
                 if let image = try? await ImageDownloader.shared.image(from: url) {
-                    card.backgroundImage = image
+                    card.backgroundImage = image.with(alpha: 0.5)
                 }
             }
         }
         card.title = festival.name
         card.titleSize = 32
-        card.textColor = .white
         card.itemTitle = festival.edate
         card.itemSubtitle = festival.area
         card.shouldPresent(vc, from: parent, fullscreen: true)
+    }
+}
+
+
+extension UIImage {
+    func with(alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: alpha)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }
