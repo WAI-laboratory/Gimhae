@@ -19,6 +19,6 @@ target 'Gimhae' do
   pod 'FirebaseFirestore'
   pod 'BetterSegmentedControl', '~> 2.0'
   pod 'Cards', :git => 'https://github.com/sobabear/Cards.git', :commit => 'f9f0d3a929df075cc911151291ca33967853f7f5'
-
+  pod 'FSPagerView'
 
 end

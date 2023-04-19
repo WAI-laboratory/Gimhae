@@ -33,9 +33,6 @@ class CardIntroduceCore: AnyCore {
         dispatch(effect: getFestivals$)
     }
     
-    func handleError(error: Error) {
-        print("❤️a \(error)")
-    }
 }
 
 

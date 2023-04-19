@@ -15,6 +15,7 @@
 		1599783529EEE2260005B668 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599783429EEE2260005B668 /* Declarative.swift */; };
 		1599783829EEE77C0005B668 /* CardIntroduceCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599783729EEE77C0005B668 /* CardIntroduceCore.swift */; };
 		1599783A29EEEEDD0005B668 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599783929EEEEDD0005B668 /* CardDetailViewController.swift */; };
+		1599783E29F034610005B668 /* UIImage+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599783D29F034610005B668 /* UIImage+ext.swift */; };
 		15CDFD2629DB1B6500BA8F08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD2529DB1B6500BA8F08 /* AppDelegate.swift */; };
 		15CDFD2829DB1B6500BA8F08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD2729DB1B6500BA8F08 /* SceneDelegate.swift */; };
 		15CDFD2A29DB1B6500BA8F08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDFD2929DB1B6500BA8F08 /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		1599783429EEE2260005B668 /* Declarative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
 		1599783729EEE77C0005B668 /* CardIntroduceCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardIntroduceCore.swift; sourceTree = "<group>"; };
 		1599783929EEEEDD0005B668 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		1599783D29F034610005B668 /* UIImage+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ext.swift"; sourceTree = "<group>"; };
 		15CDFD2229DB1B6500BA8F08 /* Gimhae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gimhae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15CDFD2529DB1B6500BA8F08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15CDFD2729DB1B6500BA8F08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				15CDFD4E29DB1EC600BA8F08 /* System+ext.swift */,
 				1599783429EEE2260005B668 /* Declarative.swift */,
+				1599783D29F034610005B668 /* UIImage+ext.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				15CDFD5C29DB208300BA8F08 /* DataViewController.swift in Sources */,
 				15CDFD5429DB1F6F00BA8F08 /* MainViewController.swift in Sources */,
 				15CDFD5E29DB25BD00BA8F08 /* Bicycke.swift in Sources */,
+				1599783E29F034610005B668 /* UIImage+ext.swift in Sources */,
 				15CDFD4F29DB1EC600BA8F08 /* System+ext.swift in Sources */,
 				15CDFD4429DB1D7500BA8F08 /* WIFIService.swift in Sources */,
 				153EBD9D29EC5BE900A4379D /* CardIntroduceViewController.swift in Sources */,

@@ -7,6 +7,10 @@ class CardIntroduceViewController: UIViewController {
     private var collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var core = CardIntroduceCore()
     private var subscription = Set<AnyCancellable>()
+    private var segment = LargeSegmentView([
+        .init(title: "축제 정보"),
+        .init(title: "핫플 (준비중)")
+    ])
     
     
     override func viewDidLoad() {
@@ -16,11 +20,22 @@ class CardIntroduceViewController: UIViewController {
     }
     
     private func initView() {
+        self.navigationController?.navigationBar.isHidden = true
+        view.add(segment) {
+            $0.backgroundColor = .systemBackground
+            $0.segmentedControl.selectedSegmentIndex = 0
+//            $0.segmentedControl.isEnabled = false
+            $0.snp.makeConstraints { make in
+                make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+                make.height.equalTo(44)
+            }
+        }
         view.add(collectionView) {
             $0.delegate = self
             $0.dataSource = self
             $0.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+                make.top.equalTo(self.segment.snp.bottom)
+                make.leading.trailing.bottom.equalToSuperview()
             }
             $0.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.id)
         }
@@ -28,8 +43,8 @@ class CardIntroduceViewController: UIViewController {
     
     private func bind(core: CardIntroduceCore) {
         core.$state.map(\.models)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] models in
-                print("❤️ \(models)")
                 self?.collectionView.reloadData()
             }
             .store(in: &subscription)
@@ -47,7 +62,7 @@ extension CardIntroduceViewController: UICollectionViewDelegate, UICollectionVie
             switch firstModel.items[indexPath.row] {
             case let .festival(value):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionViewCell.id, for: indexPath) as! CardCollectionViewCell
-                let festival = CardDetailViewController()
+                let festival = CardDetailViewController(festival: value)
                 cell.configure(festival: value, vc: festival, parent: self)
                 return cell
                 
@@ -90,17 +105,30 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     func configure(festival: Festival, vc: UIViewController, parent: UIViewController) {
         if let _image = festival.images.first, let url = URL(string: _image) {
-            Task {
+            let takst = Task {
                 if let image = try? await ImageDownloader.shared.image(from: url) {
-                    card.backgroundImage = image.with(alpha: 0.5)
+                    if image.brightness > 30 {
+                        self.card.textColor = .white
+
+                    } else if image.brightness < 30 {
+                        self.card.textColor = .black
+                    } else {
+                        self.card.textColor = .gray
+                    }
+                    
+                    self.card.backgroundImage = image
                 }
             }
         }
-        card.title = festival.name
-        card.titleSize = 32
-        card.itemTitle = festival.edate
-        card.itemSubtitle = festival.area
+
+        
+        card.hasParallax = true
+        card.title = ""
+        card.itemTitle = festival.area
+        card.itemSubtitle = festival.name
         card.shouldPresent(vc, from: parent, fullscreen: true)
+        card.buttonText = "자세히"
+        self.card.setNeedsDisplay()
     }
 }
 
