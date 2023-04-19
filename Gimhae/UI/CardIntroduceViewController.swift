@@ -21,13 +21,14 @@ class CardIntroduceViewController: UIViewController {
     
     private func initView() {
         self.navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = .systemBackground
         view.add(segment) {
             $0.backgroundColor = .systemBackground
             $0.segmentedControl.selectedSegmentIndex = 0
 //            $0.segmentedControl.isEnabled = false
             $0.snp.makeConstraints { make in
                 make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-                make.height.equalTo(44)
+                make.height.equalTo(52)
             }
         }
         view.add(collectionView) {
@@ -105,7 +106,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     func configure(festival: Festival, vc: UIViewController, parent: UIViewController) {
         if let _image = festival.images.first, let url = URL(string: _image) {
-            let takst = Task {
+            Task {
                 if let image = try? await ImageDownloader.shared.image(from: url) {
                     if image.brightness > 30 {
                         self.card.textColor = .white
@@ -115,6 +116,7 @@ class CardCollectionViewCell: UICollectionViewCell {
                     } else {
                         self.card.textColor = .gray
                     }
+                    self.card.setNeedsDisplay()
                     
                     self.card.backgroundImage = image
                 }

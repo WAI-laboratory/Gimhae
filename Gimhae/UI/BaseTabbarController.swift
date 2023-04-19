@@ -6,7 +6,7 @@ final class BaseTabBarController: UITabBarController {
     
     let mainVC = MainViewController.init()
     let cardVC = CardIntroduceViewController()
-    let settingVC = DataViewController()
+    let settingVC = SettingViewController()
     private var previousIndex = 0
     
     override func viewDidLoad() {
@@ -20,30 +20,24 @@ final class BaseTabBarController: UITabBarController {
         delegate = self
 
         // MARK: - Main
-        let mainTabSelectedImage = UIImage(systemName: "square.and.pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))!.imageWithoutBaseline()
-        let mainTabUnSelectedImage = UIImage(systemName: "square.and.pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.imageWithoutBaseline()
+        let mainTabSelectedImage = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let mainTabUnSelectedImage = UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
         mainVC.tabBarItem.image = mainTabUnSelectedImage
         mainVC.tabBarItem.selectedImage = mainTabSelectedImage
         
         // MARK: - Event
         
-        let eventTabSelectedImage = UIImage(systemName: "tortoise", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))!.imageWithoutBaseline()
-        let eventTabUnSelectedImage = UIImage(systemName: "tortoise.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.imageWithoutBaseline()
+        let eventTabSelectedImage = UIImage(systemName: "tortoise", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let eventTabUnSelectedImage = UIImage(systemName: "tortoise.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
         cardVC.tabBarItem.image = eventTabUnSelectedImage
         cardVC.tabBarItem.selectedImage = eventTabSelectedImage
 
         
-        // MARK: - Map
-        
-//        let mapTabSelectedImage = UIImage(systemName: "map.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
-//        let mapTabUnselectedImage = UIImage(systemName: "map", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
-//
-//        mapVC.tabBarItem.image = mapTabUnselectedImage
-//        mapVC.tabBarItem.selectedImage = mapTabSelectedImage
+
         
         // MARK: - Setting
-        let settingTabSelectedImage = UIImage(systemName: "text.justify", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
-        let settingTabUnSelectedImage = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 20), scale: .large))!.imageWithoutBaseline()
+        let settingTabSelectedImage = UIImage(systemName: "text.justify", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 16), scale: .large))!.imageWithoutBaseline()
+        let settingTabUnSelectedImage = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 16), scale: .large))!.imageWithoutBaseline()
 
         settingVC.tabBarItem.image = settingTabUnSelectedImage
         settingVC.tabBarItem.selectedImage = settingTabSelectedImage
@@ -61,12 +55,11 @@ final class BaseTabBarController: UITabBarController {
     
     private func updateTabBar(color: UIColor = .label) {
         tabBar.isTranslucent = true
-        tabBar.backgroundColor = .red
+        tabBar.backgroundColor = .secondarySystemBackground
 
         tabBar.tintColor = userInterfaceStyle == .light ? .black : .white
         tabBar.unselectedItemTintColor = .secondaryLabel
-//        tabBar.backgroundColor = userInterfaceStyle == .light ? ( UserDefaults.standard.mainBackgroundColor ?? .clubHouse0) : (UserDefaults.standard.mainBackgroundDarkColor ?? .staticGray900)
-//        tabBar.barTintColor = userInterfaceStyle == .light ? ( UserDefaults.standard.mainBackgroundColor ?? .clubHouse0) : (UserDefaults.standard.mainBackgroundDarkColor ?? .staticGray900)
+
         
         tabBar.layer.shadowColor = color.cgColor
         tabBar.layer.shadowOpacity = 0.08
