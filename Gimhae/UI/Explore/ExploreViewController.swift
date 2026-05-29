@@ -68,8 +68,8 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.item]
-        // TODO: Phase 2 — push category list view
-        print("Selected: \(category.title)")
+        let listVC = PlaceListViewController(category: category)
+        navigationController?.pushViewController(listVC, animated: true)
     }
 }
 

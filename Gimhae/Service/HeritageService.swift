@@ -8,6 +8,10 @@ class HeritageService: BaseService {
     static let shared = HeritageService()
     let db = Firestore.firestore()
     
+    func get() -> AnyPublisher<HeritageResponse, Error> {
+        return getAssets(page: 1)
+    }
+    
     private func getAssets(page: Int) -> AnyPublisher<HeritageResponse, Error> {
         guard let _url = URL(string: url + "?page=\(page)") else { return Fail(error: SimpleError(message: "url not found")).eraseToAnyPublisher()}
         

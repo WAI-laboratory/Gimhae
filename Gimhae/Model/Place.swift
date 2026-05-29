@@ -152,3 +152,49 @@ extension Festival: Place {
     var placeAddress: String? { address }
     var placeSummary: String? { copy }
 }
+
+// MARK: - GimhaeHeritage + Place Conformance
+
+extension GimhaeHeritage: Place {
+    var placeId: String { "heritage_\(idx)" }
+    var placeName: String { name }
+    var placeCategory: PlaceCategory { .heritage }
+    var placeCoordinate: CLLocationCoordinate2D? {
+        guard let lat = Double(xposition), let lng = Double(yposition) else { return nil }
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }
+    var placeThumbnailURL: String? { images.first }
+    var placeImages: [String] { images }
+    var placeAddress: String? { address }
+    var placeSummary: String? { copy }
+}
+
+// MARK: - Bicycle + Place Conformance
+
+extension Bicycle: Place {
+    var placeId: String { "bicycle_\(mgtNo)" }
+    var placeName: String { name }
+    var placeCategory: PlaceCategory { .bicycle }
+    var placeCoordinate: CLLocationCoordinate2D? {
+        guard let lat = Double(yCoordinate), let lng = Double(xCoordinate) else { return nil }
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }
+    var placeImages: [String] { [] }
+    var placeAddress: String? { addr }
+    var placeSummary: String? { nil }
+}
+
+// MARK: - WIFI + Place Conformance
+
+extension WIFI: Place {
+    var placeId: String { "wifi_\(mgtNo)" }
+    var placeName: String { name }
+    var placeCategory: PlaceCategory { .wifi }
+    var placeCoordinate: CLLocationCoordinate2D? {
+        guard let lat = Double(yCoordinate), let lng = Double(xCoordinate) else { return nil }
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }
+    var placeImages: [String] { [] }
+    var placeAddress: String? { addr }
+    var placeSummary: String? { nil }
+}
