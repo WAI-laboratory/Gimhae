@@ -91,7 +91,13 @@ final class HomeViewController: BaseViewController {
             target: self,
             action: #selector(openSettings)
         )
-        navigationItem.rightBarButtonItem = settingsButton
+        let searchButton = UIBarButtonItem(
+            image: UIImage(systemName: "magnifyingglass"),
+            style: .plain,
+            target: self,
+            action: #selector(openSearch)
+        )
+        navigationItem.rightBarButtonItems = [settingsButton, searchButton]
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
@@ -132,6 +138,25 @@ final class HomeViewController: BaseViewController {
         // --- Air Quality ---
         contentStack.addArrangedSubview(airSection)
         setupAirCard()
+        
+        // Getting Here button
+        let gettingHereButton = UIButton(type: .system)
+        gettingHereButton.setTitle("  김해 가는 법", for: .normal)
+        gettingHereButton.setImage(UIImage(systemName: "map"), for: .normal)
+        gettingHereButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        gettingHereButton.backgroundColor = .secondarySystemBackground
+        gettingHereButton.layer.cornerRadius = 12
+        gettingHereButton.contentHorizontalAlignment = .leading
+        gettingHereButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 20)
+        gettingHereButton.addTarget(self, action: #selector(openGettingHere), for: .touchUpInside)
+        
+        let gettingHereWrapper = UIView()
+        gettingHereWrapper.addSubview(gettingHereButton)
+        gettingHereButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+            make.height.equalTo(48)
+        }
+        contentStack.addArrangedSubview(gettingHereWrapper)
     }
     
     private func setupAirCard() {
@@ -336,6 +361,16 @@ final class HomeViewController: BaseViewController {
             let detail = PlaceDetailViewController(place: spot)
             navigationController?.pushViewController(detail, animated: true)
         }
+    }
+    
+    @objc private func openSearch() {
+        let searchVC = SearchViewController()
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
+    @objc private func openGettingHere() {
+        let vc = GettingHereViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
