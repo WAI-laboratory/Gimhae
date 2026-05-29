@@ -4,9 +4,11 @@ import Combine
 final class BaseTabBarController: UITabBarController {
     private var subscription = Set<AnyCancellable>()
     
-    let mainVC = MainViewController.init()
-    let cardVC = CardIntroduceViewController()
-    let settingVC = SettingViewController()
+    let homeVC = HomeViewController()
+    let exploreVC = ExploreViewController()
+    let mainVC = MainViewController()
+    let myTripVC = MyTripViewController()
+    
     private var previousIndex = 0
     
     override func viewDidLoad() {
@@ -15,51 +17,42 @@ final class BaseTabBarController: UITabBarController {
         updateTabBar()
     }
     
-    
     private func initView() {
         delegate = self
 
-        // MARK: - Main
-        let mainTabSelectedImage = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
-        let mainTabUnSelectedImage = UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
-        mainVC.tabBarItem.image = mainTabUnSelectedImage
-        mainVC.tabBarItem.selectedImage = mainTabSelectedImage
+        // MARK: - Home (홈)
+        let homeSelected = UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let homeUnselected = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
+        homeVC.tabBarItem = UITabBarItem(title: "tab.home".localized, image: homeUnselected, selectedImage: homeSelected)
         
-        // MARK: - Event
+        // MARK: - Explore (탐색)
+        let exploreSelected = UIImage(systemName: "safari.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let exploreUnselected = UIImage(systemName: "safari", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
+        exploreVC.tabBarItem = UITabBarItem(title: "tab.explore".localized, image: exploreUnselected, selectedImage: exploreSelected)
         
-        let eventTabSelectedImage = UIImage(systemName: "tortoise", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
-        let eventTabUnSelectedImage = UIImage(systemName: "tortoise.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
-        cardVC.tabBarItem.image = eventTabUnSelectedImage
-        cardVC.tabBarItem.selectedImage = eventTabSelectedImage
-
+        // MARK: - Map (지도)
+        let mapSelected = UIImage(systemName: "map.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let mapUnselected = UIImage(systemName: "map", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
+        mainVC.tabBarItem = UITabBarItem(title: "tab.map".localized, image: mapUnselected, selectedImage: mapSelected)
         
-
-        
-        // MARK: - Setting
-        let settingTabSelectedImage = UIImage(systemName: "text.justify", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 16), scale: .large))!.imageWithoutBaseline()
-        let settingTabUnSelectedImage = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 16), scale: .large))!.imageWithoutBaseline()
-
-        settingVC.tabBarItem.image = settingTabUnSelectedImage
-        settingVC.tabBarItem.selectedImage = settingTabSelectedImage
-        
+        // MARK: - My Trip (내 여행)
+        let tripSelected = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!.imageWithoutBaseline()
+        let tripUnselected = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))!.imageWithoutBaseline()
+        myTripVC.tabBarItem = UITabBarItem(title: "tab.myTrip".localized, image: tripUnselected, selectedImage: tripSelected)
         
         self.viewControllers = [
-                UINavigationController(rootViewController: mainVC),
-                UINavigationController(rootViewController: cardVC),
-                UINavigationController(rootViewController: settingVC),
+            UINavigationController(rootViewController: homeVC),
+            UINavigationController(rootViewController: exploreVC),
+            UINavigationController(rootViewController: mainVC),
+            UINavigationController(rootViewController: myTripVC),
         ]
-        for tab in tabBar.items! {
-            tab.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-        }
     }
     
     private func updateTabBar(color: UIColor = .label) {
         tabBar.isTranslucent = true
         tabBar.backgroundColor = .secondarySystemBackground
-
         tabBar.tintColor = userInterfaceStyle == .light ? .black : .white
         tabBar.unselectedItemTintColor = .secondaryLabel
-
         
         tabBar.layer.shadowColor = color.cgColor
         tabBar.layer.shadowOpacity = 0.08
@@ -68,18 +61,10 @@ final class BaseTabBarController: UITabBarController {
         tabBar.layer.setNeedsDisplay()
     }
     
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateTabBar()
     }
-    
-    
-//    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-//        if motion == .motionShake && UserDefaultsData.isAddMemoOnShake {
-//            mainVC.presentAddNew()
-//        }
-//    }
     
     func changeTab(selectedIndex: Int) {
         dismissAllViewControllers()
@@ -101,7 +86,6 @@ final class BaseTabBarController: UITabBarController {
             }
         }
     }
-    
 }
 
 extension BaseTabBarController: UITabBarControllerDelegate {
@@ -112,12 +96,8 @@ extension BaseTabBarController: UITabBarControllerDelegate {
             tabBar.layer.shadowColor = UIColor.quaternaryLabel.cgColor
         }
     }
-
-
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
     }
-    
-    
 }

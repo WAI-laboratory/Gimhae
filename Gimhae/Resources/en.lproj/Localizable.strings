@@ -1,0 +1,64 @@
+/* Tab Bar */
+"tab.home" = "Home";
+"tab.explore" = "Explore";
+"tab.map" = "Map";
+"tab.myTrip" = "My Trip";
+
+/* Home */
+"home.happeningNow" = "Happening Now in Gimhae";
+"home.recommended" = "Recommended Spots";
+"home.todayAir" = "Today's Air";
+"home.atAGlance" = "Gimhae at a Glance";
+
+/* Explore */
+"explore.title" = "Explore";
+"explore.attraction" = "Attractions";
+"explore.restaurant" = "Restaurants";
+"explore.heritage" = "Heritage";
+"explore.festival" = "Festivals";
+"explore.accommodation" = "Stays";
+"explore.parking" = "Parking";
+"explore.wifi" = "WiFi";
+"explore.bicycle" = "Bikes";
+
+/* Detail */
+"detail.viewOnMap" = "View on Map";
+"detail.getDirections" = "Get Directions";
+"detail.save" = "Save";
+"detail.saved" = "Saved";
+"detail.nearby" = "Nearby Places";
+"detail.hours" = "Hours";
+"detail.fee" = "Fee";
+"detail.address" = "Address";
+"detail.phone" = "Phone";
+"detail.parking" = "Parking";
+
+/* Map */
+"map.title" = "Map";
+"map.nearMe" = "Near Me";
+"map.search" = "Search places";
+
+/* My Trip */
+"myTrip.title" = "My Trip";
+"myTrip.savedPlaces" = "Saved Places";
+"myTrip.offlineCache" = "Offline Cache";
+"myTrip.checklist" = "Trip Checklist";
+"myTrip.visitStats" = "Visit History";
+"myTrip.clearAll" = "Clear All";
+"myTrip.placesVisited" = "%d places visited";
+"myTrip.categoriesExplored" = "%d categories explored";
+
+/* Common */
+"common.offline" = "Offline Mode · Showing saved data";
+"common.loading" = "Loading...";
+"common.error" = "Something went wrong";
+"common.retry" = "Retry";
+"common.noResults" = "No results";
+"common.settings" = "Settings";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.language" = "Language";
+"settings.clearCache" = "Clear Cache";
+"settings.version" = "Version";
+"settings.feedback" = "Request a Feature";
