@@ -1,0 +1,62 @@
+name: Gimhae
+options:
+  bundleIdPrefix: com.WAI
+packages:
+  CoreEngine:
+    url: https://github.com/sobabear/CoreEngine.git
+    majorVersion: 1.0.3
+  CombineCocoa:
+    url: https://github.com/CombineCommunity/CombineCocoa.git
+    majorVersion: 0.4.1
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit.git
+    majorVersion: 5.7.1
+  AddThen:
+    url: https://github.com/sobabear/AddThen.git
+    majorVersion: 1.1.0
+  BetterSegmentedControl:
+    url: https://github.com/gmarm/BetterSegmentedControl.git
+    majorVersion: 2.0.1
+  Cards:
+    path: Cards-Source
+  FSPagerView:
+    url: https://github.com/WenchaoD/FSPagerView.git
+    branch: master
+  SkeletonView:
+    url: https://github.com/Juanpe/SkeletonView.git
+    majorVersion: 1.30.0
+  NMapsMap:
+    url: https://github.com/navermaps/SPM-NMapsMap.git
+    majorVersion: 3.17.0
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    majorVersion: 7.0.0
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    exactVersion: 10.21.0
+
+targets:
+  Gimhae:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: [Gimhae]
+    info:
+      path: Gimhae/Info.plist
+    dependencies:
+      - package: CoreEngine
+      - package: CombineCocoa
+      - package: SnapKit
+      - package: AddThen
+      - package: BetterSegmentedControl
+      - package: Cards
+      - package: FSPagerView
+      - package: SkeletonView
+      - package: NMapsMap
+      - package: Kingfisher
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseFirestore

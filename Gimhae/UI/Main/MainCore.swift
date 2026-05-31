@@ -1,6 +1,6 @@
+import CodableFirebase
 import Combine
 import CoreEngine
-import CodableFirebase
 import FirebaseFirestore
 
 class MainCore: AnyCore {

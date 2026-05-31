@@ -14,7 +14,7 @@ struct FestivalResponse: Codable {
     var results: [Festival]
 }
 
-struct Festival: Codable {
+struct Festival: Codable, Equatable {
     var name: String
     var address: String
     var idx: Int

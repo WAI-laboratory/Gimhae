@@ -104,7 +104,7 @@ struct TourismResponse: Codable {
     var results: [TourismSpot]
 }
 
-struct TourismSpot: Codable {
+struct TourismSpot: Codable, Equatable {
     var idx: Int
     var name: String
     var category: String

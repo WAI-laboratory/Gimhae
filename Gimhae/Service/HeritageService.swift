@@ -1,7 +1,6 @@
 import Combine
 import Foundation
 import FirebaseFirestore
-import CodableFirebase
 
 class HeritageService: BaseService {
     let url = "http://www.gimhae.go.kr/openapi/tour/asset.do"
